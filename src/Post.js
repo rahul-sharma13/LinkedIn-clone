@@ -1,5 +1,7 @@
+//using React flip move too.
+
 import { Avatar } from "@mui/material";
-import React from 'react';
+import React , {forwardRef} from 'react';
 import "./Post.css";
 import InputOption from "./InputOption";
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
@@ -7,11 +9,15 @@ import MessageIcon from '@mui/icons-material/Message';
 import ShareIcon from '@mui/icons-material/Share';
 import SendIcon from '@mui/icons-material/Send';
 
-function Post({ name, description, message,photoUrl}) {
+const  Post = forwardRef(({ name, description, message,photoUrl}, ref) => {
+  const firstAlpha = name[0];
+  const itsCap = firstAlpha.toUpperCase();
+
   return (
-    <div className="post">
+    // ref = {ref} is used as react needs a pointer regarding the animations
+    <div ref={ref} className="post">          
         <div className="post__header">
-            <Avatar />
+            <Avatar src={photoUrl}> {itsCap} </Avatar>
             <div className="post__info">
                 <h2>{name}</h2>
                 <p>{description}</p>
@@ -30,6 +36,6 @@ function Post({ name, description, message,photoUrl}) {
         </div>
     </div>
   )
-}
+})
 
 export default Post

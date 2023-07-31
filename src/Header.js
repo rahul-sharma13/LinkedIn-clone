@@ -7,8 +7,19 @@ import SupervisorAccountSharpIcon from '@mui/icons-material/SupervisorAccountSha
 import BusinessCenterSharpIcon from '@mui/icons-material/BusinessCenterSharp';
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useDispatch } from "react-redux";
+import { logout } from "./features/userSlice";
+import { auth } from "./firebase";
 
 function Header() {
+
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout())
+    auth.signOut();
+  }
+
   return (
     <div className="header">
       {/* header left gives the icon and the search bar */}
@@ -19,7 +30,7 @@ function Header() {
         />
         <div className="header__search">
           <SearchIcon />
-          <input type="text" />
+          <input placeholder="Search" type="text" />
         </div>
       </div>
 
@@ -29,9 +40,11 @@ function Header() {
         <HeaderOption Icon={BusinessCenterSharpIcon} title="Jobs" />
         <HeaderOption Icon={ChatIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOption 
-        avatar="https://th.bing.com/th/id/OIG.eXk_.rldqofgfIYQTI3q?w=173&h=173&c=6&pcl=1b1a19&r=0&o=5&dpr=1.3&pid=ImgGn"
-        title="me"/>
+        <HeaderOption
+        avatar={true} 
+        title="me" 
+        onClick={logoutOfApp}  
+        />
       </div>
     </div>
   );
